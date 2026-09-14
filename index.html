@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#3E2723" />
-  <meta name="description" content="High On Beans — leave a quick Google review to unlock PhonePe payment." />
+  <meta name="description" content="High On Beans — leave a quick Google review, then pay with UPI." />
   <title>High On Beans · Review &amp; Pay</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -18,7 +18,7 @@
 
     <main class="card" id="main">
       <p class="lead">Quick Google review unlocks payment</p>
-      <p class="sub">Tap below, leave a short review, then scan the PhonePe QR to pay.</p>
+      <p class="sub">Leave a short review, then your UPI app opens to pay.</p>
 
       <a
         id="reviewBtn"
@@ -31,13 +31,17 @@
       </a>
 
       <button type="button" id="unlockOnlyBtn" class="btn btn-ghost">
-        I've opened the review — show QR
+        I've left the review — open UPI
       </button>
 
       <section id="paySection" class="pay-section" hidden aria-live="polite">
         <div class="divider" aria-hidden="true"></div>
-        <h2 class="pay-title">Thanks — scan to pay with PhonePe</h2>
-        <p class="pay-hint">Open PhonePe or any UPI app and scan this QR.</p>
+        <h2 class="pay-title">Thanks — pay with UPI</h2>
+        <p class="pay-hint">When you come back from Google, your UPI app should open. If it doesn’t, tap below.</p>
+        <button type="button" id="payUpiBtn" class="btn btn-primary">
+          Open UPI to pay
+        </button>
+        <p class="pay-hint" style="margin-top:1rem">Or scan this QR</p>
         <figure class="qr-wrap">
           <img
             id="qrImg"
