@@ -220,3 +220,62 @@ body {
     padding-top: 2.5rem;
   }
 }
+
+/* Ready-made review chips */
+.review-picks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin: 0 0 0.85rem;
+}
+
+.review-chip {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  color: var(--ink);
+  font: inherit;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
+}
+
+.review-chip:hover,
+.review-chip:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(111, 78, 55, 0.2);
+}
+
+.review-chip.is-selected {
+  border-color: var(--accent);
+  background: #f0e6da;
+}
+
+.review-chip-label {
+  display: block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.review-chip-text {
+  display: block;
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.4;
+}
+
+.copy-status {
+  margin: 0 0 0.85rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-align: center;
+}

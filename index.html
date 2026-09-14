@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#3E2723" />
-  <meta name="description" content="High On Beans — leave a quick Google review, then pay with UPI." />
+  <meta name="description" content="High On Beans — copy a review, post on Google, then pay with UPI." />
   <title>High On Beans · Review &amp; Pay</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -17,8 +17,25 @@
     </header>
 
     <main class="card" id="main">
-      <p class="lead">Quick Google review unlocks payment</p>
-      <p class="sub">Leave a short review, then your UPI app opens to pay.</p>
+      <p class="lead">3 taps: copy → paste on Google → pay</p>
+      <p class="sub">Tap a review to copy it. Then open Google, paste, post — UPI opens when you come back.</p>
+
+      <div class="review-picks" role="group" aria-label="Ready-made reviews">
+        <button type="button" class="review-chip" data-review="Loved High On Beans! Taste and aroma are amazing. Highly recommend. ☕">
+          <span class="review-chip-label">Review 1</span>
+          <span class="review-chip-text">Loved High On Beans! Taste and aroma are amazing. Highly recommend. ☕</span>
+        </button>
+        <button type="button" class="review-chip" data-review="Best instant coffee I've tried. Rich flavour, smooth aftertaste. Will buy again!">
+          <span class="review-chip-label">Review 2</span>
+          <span class="review-chip-text">Best instant coffee I've tried. Rich flavour, smooth aftertaste. Will buy again!</span>
+        </button>
+        <button type="button" class="review-chip" data-review="HOB coffee is premium quality. Mocha and Hazelnut are my favourites. 5 stars!">
+          <span class="review-chip-label">Review 3</span>
+          <span class="review-chip-text">HOB coffee is premium quality. Mocha and Hazelnut are my favourites. 5 stars!</span>
+        </button>
+      </div>
+
+      <p id="copyStatus" class="copy-status" aria-live="polite" hidden></p>
 
       <a
         id="reviewBtn"
@@ -27,11 +44,11 @@
         target="_blank"
         rel="noopener noreferrer"
       >
-        Leave a Google review
+        Open Google &amp; paste review
       </a>
 
       <button type="button" id="unlockOnlyBtn" class="btn btn-ghost">
-        I've left the review — open UPI
+        I've posted the review — open UPI
       </button>
 
       <section id="paySection" class="pay-section" hidden aria-live="polite">

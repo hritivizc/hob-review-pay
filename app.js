@@ -10,6 +10,8 @@
   var reviewBtn = document.getElementById("reviewBtn");
   var unlockOnlyBtn = document.getElementById("unlockOnlyBtn");
   var payUpiBtn = document.getElementById("payUpiBtn");
+  var copyStatus = document.getElementById("copyStatus");
+  var chips = document.querySelectorAll(".review-chip");
 
   function isUnlocked() {
     try {
@@ -22,18 +24,14 @@
   function persistUnlock() {
     try {
       sessionStorage.setItem(STORAGE_KEY, "1");
-    } catch (e) {
-      /* private mode — DOM unlock still works */
-    }
+    } catch (e) {}
   }
 
   function setPendingUpi(on) {
     try {
       if (on) sessionStorage.setItem(PENDING_UPI_KEY, "1");
       else sessionStorage.removeItem(PENDING_UPI_KEY);
-    } catch (e) {
-      /* ignore */
-    }
+    } catch (e) {}
   }
 
   function isPendingUpi() {
@@ -51,7 +49,6 @@
   }
 
   function openUpiPayment() {
-    /* Navigate to UPI intent so PhonePe / GPay / Paytm can open */
     window.location.href = UPI_URI;
   }
 
@@ -73,13 +70,58 @@
     openUpiPayment();
   }
 
+  function showCopyStatus(msg) {
+    if (!copyStatus) return;
+    copyStatus.hidden = false;
+    copyStatus.textContent = msg;
+  }
+
+  function copyText(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    }
+    return new Promise(function (resolve, reject) {
+      var ta = document.createElement("textarea");
+      ta.value = text;
+      ta.setAttribute("readonly", "");
+      ta.style.position = "fixed";
+      ta.style.left = "-9999px";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        document.body.removeChild(ta);
+        resolve();
+      } catch (e) {
+        document.body.removeChild(ta);
+        reject(e);
+      }
+    });
+  }
+
+  chips.forEach(function (chip) {
+    chip.addEventListener("click", function () {
+      var text = chip.getAttribute("data-review") || "";
+      chips.forEach(function (c) {
+        c.classList.remove("is-selected");
+      });
+      chip.classList.add("is-selected");
+      copyText(text)
+        .then(function () {
+          showCopyStatus("Copied! Now tap “Open Google & paste review”.");
+        })
+        .catch(function () {
+          showCopyStatus("Couldn’t copy automatically — long-press the text and copy.");
+        });
+    });
+  });
+
   if (isUnlocked()) {
     showPaySection();
   }
 
   if (reviewBtn) {
     reviewBtn.addEventListener("click", function () {
-      /* Google opens via target=_blank; mark pending UPI for when they return */
       unlock({ pendingUpi: true });
     });
   }
@@ -100,12 +142,6 @@
   document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "visible") tryOpenUpiAfterReturn();
   });
-
-  window.addEventListener("pageshow", function () {
-    tryOpenUpiAfterReturn();
-  });
-
-  window.addEventListener("focus", function () {
-    tryOpenUpiAfterReturn();
-  });
+  window.addEventListener("pageshow", tryOpenUpiAfterReturn);
+  window.addEventListener("focus", tryOpenUpiAfterReturn);
 })();
