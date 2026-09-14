@@ -6,8 +6,6 @@
   <meta name="theme-color" content="#3E2723" />
   <title>Pay · High On Beans</title>
   <link rel="stylesheet" href="styles.css" />
-  <!-- Try to open UPI immediately via refresh meta (works on many Android browsers) -->
-  <meta http-equiv="refresh" content="0;url=upi://pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00" />
 </head>
 <body>
   <div class="page">
@@ -17,24 +15,64 @@
       <p class="brand-tag">HOB</p>
     </header>
     <main class="card">
-      <p class="lead">Opening UPI payment…</p>
-      <p class="sub">If nothing opens, tap the button below — same phone, no QR scan needed.</p>
+      <p class="lead">Pay with PhonePe or GPay</p>
+      <p class="sub">Tap your app — opens payment on this phone. WhatsApp Pay is not used.</p>
+
       <a
-        id="payLink"
+        id="payPhonePe"
         class="btn btn-primary"
-        href="upi://pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00"
-      >Pay with UPI / PhonePe</a>
-      <a class="btn btn-ghost" href="index.html">Back</a>
-      <p class="pay-hint" style="margin-top:1.25rem">Paying someone else? Ask them to open this page on their phone and tap Pay.</p>
+        href="phonepe://pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00"
+      >Pay with PhonePe</a>
+
+      <a
+        id="payGPay"
+        class="btn btn-primary"
+        href="gpay://upi/pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00"
+        style="margin-top:0.65rem"
+      >Pay with Google Pay</a>
+
+      <a
+        id="payPaytm"
+        class="btn btn-ghost"
+        href="paytmmp://pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00"
+        style="margin-top:0.65rem"
+      >Pay with Paytm</a>
+
+      <a class="btn btn-ghost" href="index.html" style="margin-top:0.65rem">Back</a>
+      <p class="pay-hint" style="margin-top:1.25rem">If an app doesn’t open, install it or try the other button.</p>
     </main>
   </div>
   <script>
     (function () {
-      var uri = "upi://pay?pa=7073123656-6@ibl&pn=Ritik%20Sharma&mc=0000&mode=02&purpose=00";
-      // JS redirect as backup to meta refresh
-      setTimeout(function () {
-        window.location.href = uri;
-      }, 200);
+      var q = "pa=7073123656-6@ibl&pn=Ritik%20Sharma&mc=0000&mode=02&purpose=00";
+      var phonePe = "phonepe://pay?" + q;
+      var gpay = "gpay://upi/pay?" + q;
+      var paytm = "paytmmp://pay?" + q;
+      /* Android Chrome: package-locked intents — never WhatsApp */
+      var isAndroid = /Android/i.test(navigator.userAgent || "");
+      if (isAndroid) {
+        var phonePeEl = document.getElementById("payPhonePe");
+        var gpayEl = document.getElementById("payGPay");
+        var paytmEl = document.getElementById("payPaytm");
+        if (phonePeEl) {
+          phonePeEl.href =
+            "intent://pay?" + q +
+            "#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url=" +
+            encodeURIComponent(phonePe) + ";end";
+        }
+        if (gpayEl) {
+          gpayEl.href =
+            "intent://pay?" + q +
+            "#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=" +
+            encodeURIComponent(gpay) + ";end";
+        }
+        if (paytmEl) {
+          paytmEl.href =
+            "intent://pay?" + q +
+            "#Intent;scheme=upi;package=net.one97.paytm;S.browser_fallback_url=" +
+            encodeURIComponent(paytm) + ";end";
+        }
+      }
     })();
   </script>
 </body>
