@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#3E2723" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
   <title>Pay · High On Beans</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -16,63 +17,52 @@
     </header>
     <main class="card">
       <p class="lead">Pay with PhonePe or GPay</p>
-      <p class="sub">Tap your app — opens payment on this phone. WhatsApp Pay is not used.</p>
+      <p class="sub">Choose an app below. This will not open WhatsApp Pay.</p>
 
-      <a
-        id="payPhonePe"
-        class="btn btn-primary"
-        href="phonepe://pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00"
-      >Pay with PhonePe</a>
+      <button type="button" id="payPhonePe" class="btn btn-primary">Pay with PhonePe</button>
+      <button type="button" id="payGPay" class="btn btn-primary" style="margin-top:0.65rem">Pay with Google Pay</button>
 
-      <a
-        id="payGPay"
-        class="btn btn-primary"
-        href="gpay://upi/pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00"
-        style="margin-top:0.65rem"
-      >Pay with Google Pay</a>
-
-      <a
-        id="payPaytm"
-        class="btn btn-ghost"
-        href="paytmmp://pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00"
-        style="margin-top:0.65rem"
-      >Pay with Paytm</a>
-
-      <a class="btn btn-ghost" href="index.html" style="margin-top:0.65rem">Back</a>
-      <p class="pay-hint" style="margin-top:1.25rem">If an app doesn’t open, install it or try the other button.</p>
+      <a class="btn btn-ghost" href="index.html?v=3" style="margin-top:0.65rem">Back</a>
+      <p class="pay-hint" style="margin-top:1.25rem">Hard-refresh if you still see an old page (pull down to reload).</p>
     </main>
   </div>
   <script>
     (function () {
       var q = "pa=7073123656-6@ibl&pn=Ritik%20Sharma&mc=0000&mode=02&purpose=00";
-      var phonePe = "phonepe://pay?" + q;
-      var gpay = "gpay://upi/pay?" + q;
-      var paytm = "paytmmp://pay?" + q;
-      /* Android Chrome: package-locked intents — never WhatsApp */
-      var isAndroid = /Android/i.test(navigator.userAgent || "");
-      if (isAndroid) {
-        var phonePeEl = document.getElementById("payPhonePe");
-        var gpayEl = document.getElementById("payGPay");
-        var paytmEl = document.getElementById("payPaytm");
-        if (phonePeEl) {
-          phonePeEl.href =
-            "intent://pay?" + q +
-            "#Intent;scheme=upi;package=com.phonepe.app;S.browser_fallback_url=" +
-            encodeURIComponent(phonePe) + ";end";
+      /* Never use upi:// — WhatsApp registers for that scheme */
+      var links = {
+        phonepe: [
+          "phonepe://pay?" + q,
+          "ppe://upi/pay?" + q,
+          "intent://pay?" + q + "#Intent;scheme=phonepe;package=com.phonepe.app;end"
+        ],
+        gpay: [
+          "gpay://upi/pay?" + q,
+          "tez://upi/pay?" + q,
+          "intent://upi/pay?" + q + "#Intent;scheme=tez;package=com.google.android.apps.nbu.paisa.user;end",
+          "intent://upi/pay?" + q + "#Intent;scheme=gpay;package=com.google.android.apps.nbu.paisa.user;end"
+        ]
+      };
+
+      function openApp(list) {
+        var i = 0;
+        function tryNext() {
+          if (i >= list.length) return;
+          var url = list[i++];
+          /* Prefer top navigation for custom schemes */
+          window.location.href = url;
+          /* If first scheme fails silently, try next after a short delay */
+          if (i < list.length) {
+            setTimeout(tryNext, 1200);
+          }
         }
-        if (gpayEl) {
-          gpayEl.href =
-            "intent://pay?" + q +
-            "#Intent;scheme=upi;package=com.google.android.apps.nbu.paisa.user;S.browser_fallback_url=" +
-            encodeURIComponent(gpay) + ";end";
-        }
-        if (paytmEl) {
-          paytmEl.href =
-            "intent://pay?" + q +
-            "#Intent;scheme=upi;package=net.one97.paytm;S.browser_fallback_url=" +
-            encodeURIComponent(paytm) + ";end";
-        }
+        tryNext();
       }
+
+      var pe = document.getElementById("payPhonePe");
+      var gp = document.getElementById("payGPay");
+      if (pe) pe.addEventListener("click", function () { openApp(links.phonepe); });
+      if (gp) gp.addEventListener("click", function () { openApp(links.gpay); });
     })();
   </script>
 </body>
