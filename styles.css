@@ -1,0 +1,222 @@
+/* High On Beans — warm coffee palette, mobile-first */
+:root {
+  --bg: #f5efe6;
+  --bg-deep: #ebe0d0;
+  --card: #fffaf4;
+  --ink: #2c1810;
+  --ink-soft: #5c4033;
+  --muted: #7a5c4a;
+  --accent: #6f4e37;
+  --accent-hover: #5a3d2b;
+  --accent-press: #4a3224;
+  --cream: #f8f1e7;
+  --border: #d4c4b0;
+  --ring: #c4a484;
+  --shadow: 0 8px 28px rgba(44, 24, 16, 0.12);
+  --radius: 16px;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font);
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 120% 80% at 50% -20%, #e8d5c0 0%, transparent 55%),
+    linear-gradient(165deg, var(--bg) 0%, var(--bg-deep) 100%);
+  line-height: 1.5;
+}
+
+.page {
+  max-width: 420px;
+  margin: 0 auto;
+  padding: 1.5rem 1.15rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.logo {
+  font-size: 2.25rem;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+  filter: drop-shadow(0 2px 4px rgba(44, 24, 16, 0.15));
+}
+
+.brand-name {
+  margin: 0;
+  font-size: 1.65rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+
+.brand-tag {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1.35rem 1.25rem 1.5rem;
+  flex: 1 0 auto;
+}
+
+.lead {
+  margin: 0 0 0.4rem;
+  font-size: 1.15rem;
+  font-weight: 650;
+  color: var(--ink);
+  text-align: center;
+}
+
+.sub {
+  margin: 0 0 1.35rem;
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  text-align: center;
+}
+
+.btn {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 650;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 12px;
+  padding: 0.95rem 1.1rem;
+  cursor: pointer;
+  border: none;
+  transition: background 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.btn-primary {
+  color: #fffaf4;
+  background: var(--accent);
+  box-shadow: 0 4px 14px rgba(111, 78, 55, 0.35);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+}
+
+.btn-primary:active {
+  background: var(--accent-press);
+  transform: scale(0.98);
+}
+
+.btn-ghost {
+  margin-top: 0.75rem;
+  color: var(--ink-soft);
+  background: transparent;
+  border: 1px solid var(--border);
+  font-size: 0.88rem;
+  font-weight: 550;
+  padding: 0.7rem 1rem;
+}
+
+.btn-ghost:hover {
+  background: var(--cream);
+  color: var(--ink);
+}
+
+.btn-ghost:active {
+  transform: scale(0.98);
+}
+
+.pay-section {
+  margin-top: 0.25rem;
+}
+
+.pay-section[hidden] {
+  display: none !important;
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border), transparent);
+  margin: 1.35rem 0 1.15rem;
+}
+
+.pay-title {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+  font-weight: 650;
+  text-align: center;
+  color: var(--ink);
+}
+
+.pay-hint {
+  margin: 0 0 1rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+.qr-wrap {
+  margin: 0 auto;
+  padding: 0.75rem;
+  max-width: 280px;
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(44, 24, 16, 0.08);
+}
+
+.qr-wrap img {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  margin: 0 auto;
+  border-radius: 4px;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.footer p {
+  margin: 0;
+}
+
+@media (min-width: 480px) {
+  .page {
+    padding-top: 2.5rem;
+  }
+}

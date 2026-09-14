@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#3E2723" />
+  <meta name="description" content="High On Beans — leave a quick Google review to unlock PhonePe payment." />
+  <title>High On Beans · Review &amp; Pay</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page">
+    <header class="brand" aria-label="High On Beans">
+      <div class="logo" aria-hidden="true">☕</div>
+      <h1 class="brand-name">High On Beans</h1>
+      <p class="brand-tag">HOB</p>
+    </header>
+
+    <main class="card" id="main">
+      <p class="lead">Quick Google review unlocks payment</p>
+      <p class="sub">Tap below, leave a short review, then scan the PhonePe QR to pay.</p>
+
+      <a
+        id="reviewBtn"
+        class="btn btn-primary"
+        href="https://www.google.com/search?sca_esv=ca3cb6d5ce7709a9&amp;rlz=1C5CHFA_enIN1177IN1177&amp;sxsrf=APpeQntPBMEN0trO0D0YfzY9yPDDTtMzeQ:1789384878749&amp;si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_-iMqspr3wXg4qn6NXS4X_GTL_is5HBTp9Ddrv70ZLb_j4LEuJaNm1a4kzVnV1Qfs8r-oFQ_9p08oyRvhVjKaoZwQLy5HxRWmhAKP3C8jw49hBroOQ%3D%3D&amp;q=HOB-+High+On+Beans+Reviews&amp;sa=X&amp;ved=2ahUKEwijq8GQ-u2WAxXITWwGHUm0AcwQ0bkNegQIQRAH#"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Leave a Google review
+      </a>
+
+      <button type="button" id="unlockOnlyBtn" class="btn btn-ghost">
+        I've opened the review — show QR
+      </button>
+
+      <section id="paySection" class="pay-section" hidden aria-live="polite">
+        <div class="divider" aria-hidden="true"></div>
+        <h2 class="pay-title">Thanks — scan to pay with PhonePe</h2>
+        <p class="pay-hint">Open PhonePe or any UPI app and scan this QR.</p>
+        <figure class="qr-wrap">
+          <img
+            id="qrImg"
+            src="assets/phonepe-qr.jpeg"
+            alt="PhonePe UPI QR code for High On Beans payment"
+            width="280"
+            height="280"
+            decoding="async"
+          />
+        </figure>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>High On Beans · HOB</p>
+    </footer>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
