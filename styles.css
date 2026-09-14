@@ -279,3 +279,25 @@ body {
   color: var(--accent);
   text-align: center;
 }
+
+.qr-fallback {
+  margin-top: 1.25rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.qr-fallback summary {
+  cursor: pointer;
+  text-align: center;
+  list-style: none;
+  font-weight: 600;
+}
+
+.qr-fallback summary::-webkit-details-marker {
+  display: none;
+}
+
+.qr-fallback[open] summary {
+  margin-bottom: 0.75rem;
+  color: var(--ink-soft);
+}

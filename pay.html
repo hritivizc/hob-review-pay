@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#3E2723" />
+  <title>Pay · High On Beans</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Try to open UPI immediately via refresh meta (works on many Android browsers) -->
+  <meta http-equiv="refresh" content="0;url=upi://pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00" />
+</head>
+<body>
+  <div class="page">
+    <header class="brand" aria-label="High On Beans">
+      <div class="logo" aria-hidden="true">☕</div>
+      <h1 class="brand-name">High On Beans</h1>
+      <p class="brand-tag">HOB</p>
+    </header>
+    <main class="card">
+      <p class="lead">Opening UPI payment…</p>
+      <p class="sub">If nothing opens, tap the button below — same phone, no QR scan needed.</p>
+      <a
+        id="payLink"
+        class="btn btn-primary"
+        href="upi://pay?pa=7073123656-6@ibl&amp;pn=Ritik%20Sharma&amp;mc=0000&amp;mode=02&amp;purpose=00"
+      >Pay with UPI / PhonePe</a>
+      <a class="btn btn-ghost" href="index.html">Back</a>
+      <p class="pay-hint" style="margin-top:1.25rem">Paying someone else? Ask them to open this page on their phone and tap Pay.</p>
+    </main>
+  </div>
+  <script>
+    (function () {
+      var uri = "upi://pay?pa=7073123656-6@ibl&pn=Ritik%20Sharma&mc=0000&mode=02&purpose=00";
+      // JS redirect as backup to meta refresh
+      setTimeout(function () {
+        window.location.href = uri;
+      }, 200);
+    })();
+  </script>
+</body>
+</html>

@@ -3,13 +3,11 @@
 
   var STORAGE_KEY = "hob_review_opened";
   var PENDING_UPI_KEY = "hob_pending_upi";
-  var UPI_URI =
-    "upi://pay?pa=7073123656-6@ibl&pn=Ritik%20Sharma&mc=0000&mode=02&purpose=00";
+  var PAY_PAGE = "pay.html";
 
   var paySection = document.getElementById("paySection");
   var reviewBtn = document.getElementById("reviewBtn");
   var unlockOnlyBtn = document.getElementById("unlockOnlyBtn");
-  var payUpiBtn = document.getElementById("payUpiBtn");
   var copyStatus = document.getElementById("copyStatus");
   var chips = document.querySelectorAll(".review-chip");
 
@@ -48,8 +46,8 @@
     paySection.removeAttribute("hidden");
   }
 
-  function openUpiPayment() {
-    window.location.href = UPI_URI;
+  function goToPayPage() {
+    window.location.href = PAY_PAGE;
   }
 
   function unlock(opts) {
@@ -57,17 +55,17 @@
     persistUnlock();
     showPaySection();
     if (opts.pendingUpi) setPendingUpi(true);
-    if (opts.openUpiNow) {
+    if (opts.goPayNow) {
       setPendingUpi(false);
-      openUpiPayment();
+      goToPayPage();
     }
   }
 
-  function tryOpenUpiAfterReturn() {
+  function tryPayAfterReturn() {
     if (!isUnlocked() || !isPendingUpi()) return;
     if (document.visibilityState && document.visibilityState !== "visible") return;
     setPendingUpi(false);
-    openUpiPayment();
+    goToPayPage();
   }
 
   function showCopyStatus(msg) {
@@ -111,7 +109,7 @@
           showCopyStatus("Copied! Now tap “Open Google & paste review”.");
         })
         .catch(function () {
-          showCopyStatus("Couldn’t copy automatically — long-press the text and copy.");
+          showCopyStatus("Couldn’t copy — long-press the text and copy.");
         });
     });
   });
@@ -128,20 +126,13 @@
 
   if (unlockOnlyBtn) {
     unlockOnlyBtn.addEventListener("click", function () {
-      unlock({ openUpiNow: true });
-    });
-  }
-
-  if (payUpiBtn) {
-    payUpiBtn.addEventListener("click", function () {
-      setPendingUpi(false);
-      openUpiPayment();
+      unlock({ goPayNow: true });
     });
   }
 
   document.addEventListener("visibilitychange", function () {
-    if (document.visibilityState === "visible") tryOpenUpiAfterReturn();
+    if (document.visibilityState === "visible") tryPayAfterReturn();
   });
-  window.addEventListener("pageshow", tryOpenUpiAfterReturn);
-  window.addEventListener("focus", tryOpenUpiAfterReturn);
+  window.addEventListener("pageshow", tryPayAfterReturn);
+  window.addEventListener("focus", tryPayAfterReturn);
 })();
